@@ -32,6 +32,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 TUNNEL = os.path.dirname(HERE)
 CLIENT = os.path.join(TUNNEL, "client")
 CFG_PATH = os.path.join(CLIENT, "wstun.json")
+if not os.path.exists(CFG_PATH):
+    # 开源仓库里真实的 wstun.json 被 .gitignore 排除，只有模板
+    CFG_PATH = os.path.join(CLIENT, "wstun.example.json")
 GOODIP_PATH = os.path.join(CLIENT, "goodip.json")
 
 # Cloudflare 官方公布的 IPv4 段（cloudflare.com/ips-v4）

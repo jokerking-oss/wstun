@@ -26,6 +26,9 @@ TUNNEL = os.path.dirname(HERE)
 CLIENT = os.path.join(TUNNEL, "client")
 GOODIP_PATH = os.path.join(CLIENT, "goodip.json")
 CFG_PATH = os.path.join(CLIENT, "wstun.json")
+if not os.path.exists(CFG_PATH):
+    # 开源仓库里真实的 wstun.json 被 .gitignore 排除，只有模板
+    CFG_PATH = os.path.join(CLIENT, "wstun.example.json")
 
 # 用 Cloudflare 自家的测速端点拉数据。连的是指定 IP，所以路由由 IP 决定。
 MEASURE_HOST = "speed.cloudflare.com"
