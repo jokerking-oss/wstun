@@ -1,0 +1,27 @@
+# 本地配置：含你的端点与口令，绝不入库
+client/wstun.json
+
+# Cloudflare / Wrangler
+.wrangler/
+.dev.vars
+wrangler.toml
+node_modules/
+
+# 运行时状态
+_runtime/
+*.pid
+*.log
+*.jsonl
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

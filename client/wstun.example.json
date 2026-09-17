@@ -1,0 +1,95 @@
+{
+  "_说明": "endpoint 填边缘节点地址（不要带 m 参数，模式由 default_mode/residential 决定）；token 与边缘 AUTH 一致。",
+  "endpoint": "wss://your-project.pages.dev/",
+  "token": "CHANGE-ME-use-a-long-random-token",
+  "listen_host": "127.0.0.1",
+  "listen_port": 10808,
+  "timeout": 30,
+  "tls_skip_verify": false,
+
+  "_分流说明": "default_mode=up 表示所有流量都走美国住宅代理（出口 AS26407 Carolina Digital 家庭宽带，纯净度最高）。国内站点由下面的 cn_direct 单独拎出来走本机直连。",
+  "default_mode": "up",
+
+  "_国内直连说明": "enabled=true：命中国内域名规则、或解析出的 IP 落在 china_ip.txt 里的目标，直接走本机线路（不经过隧道、不消耗住宅代理流量），国内的网站/网盘/视频照样满速。其余目标（含所有国外站点）一律走美国住宅。residential 名单优先级最高——名单里的站点永远走住宅，绝不会被国内直连规则抢走。",
+  "cn_direct": {
+    "enabled": true,
+    "ip_file": "china_ip.txt",
+    "domains": [
+      "cn", "中国", "公司.cn", "网络.cn",
+
+      "baidu.com", "bdstatic.com", "bdimg.com", "baidubce.com", "bcebos.com",
+      "qq.com", "gtimg.com", "gtimg.cn", "qpic.cn", "qqmail.com", "tencent.com",
+      "weixin.com", "wechat.com", "tenpay.com", "myqcloud.com", "qcloud.com",
+      "qcloudimg.com", "tencent-cloud.com", "dingtalk.com", "feishu.net",
+      "alibaba.com", "taobao.com", "tmall.com", "alicdn.com", "alipay.com",
+      "alipayobjects.com", "aliyun.com", "aliyuncs.com", "alibabacloud.com",
+      "1688.com", "tbcdn.cn", "taobaocdn.com", "ele.me", "amap.com", "alimama.com",
+      "jd.com", "360buyimg.com", "jdcdn.com",
+      "bilibili.com", "hdslb.com", "b23.tv", "bilivideo.com", "acfun.cn",
+      "weibo.com", "sina.com.cn", "sinaimg.cn", "weibocdn.com", "sinajs.cn",
+      "sohu.com", "163.com", "126.com", "127.net", "netease.com", "163yun.com",
+      "zhihu.com", "zhimg.com", "douban.com", "jianshu.com",
+      "douyin.com", "bytedance.com", "byteimg.com", "toutiao.com", "ixigua.com",
+      "snssdk.com", "volces.com", "volcengine.com", "feishu.cn",
+      "kuaishou.com", "kwimgs.com", "douyu.com", "huya.com",
+      "meituan.com", "meituan.net", "dianping.com", "58.com", "anjuke.com",
+      "ke.com", "lianjia.com", "fang.com", "smzdm.com",
+      "pinduoduo.com", "yangkeduo.com", "xiaohongshu.com", "xhscdn.com",
+      "huawei.com", "huaweicloud.com", "hicloud.com", "vmall.com",
+      "xiaomi.com", "mi.com", "miui.com", "oppo.com", "vivo.com",
+      "iqiyi.com", "qiyi.com", "iqiyipic.com", "71.am", "youku.com", "tudou.com",
+      "mgtv.com", "le.com", "letv.com", "so.com", "360.cn", "360.com", "qihoo.com",
+      "sogou.com", "sogoucdn.com", "ifeng.com", "cctv.com", "cntv.cn",
+      "xinhuanet.com", "chinanews.com", "people.com.cn", "cnbeta.com.tw",
+      "csdn.net", "gitee.com", "oschina.net", "cnblogs.com", "51cto.com",
+      "juejin.cn", "zhipin.com", "51job.com", "lagou.com", "zhaopin.com",
+      "xunlei.com", "wps.cn", "wps.com", "kingsoft.com", "kdocs.cn", "youdao.com",
+      "qiniu.com", "qiniucdn.com", "upyun.com", "jianguoyun.com", "oray.com",
+      "unionpay.com", "cmbchina.com", "pingan.com", "alipay.com.cn",
+      "mihoyo.com", "yuanshen.com", "sdo.com", "3dmgame.com", "ali213.net",
+      "zol.com.cn", "it168.com", "pconline.com.cn", "xcar.com.cn", "autohome.com.cn", "example.org", "example.net"
+    ]
+  },
+  "_strict说明": "strict_residential=true 是防范性开关：切断一切 direct（Cloudflare 机房出口）通路——route() 永远返回 up，连 _mk_ws 也不允许建 direct 连接。目的是杜绝任何一次「静默漏成机房 IP」，这才是 IP 纯净度的真正保障。代价：住宅代理不可用时直接报错，而不是偷偷降级成机房 IP。",
+  "strict_residential": true,
+  "residential": [
+    "chatgpt.com", "openai.com", "oaiusercontent.com", "sora.com",
+    "claude.ai", "anthropic.com",
+    "gemini.google.com", "bard.google.com", "deepmind.google",
+    "copilot.microsoft.com", "poe.com", "perplexity.ai", "character.ai",
+    "midjourney.com",
+    "netflix.com", "nflxvideo.net", "nflximg.net", "nflxext.com",
+    "hulu.com", "hbomax.com", "max.com", "disneyplus.com",
+    "primevideo.com", "peacocktv.com", "paramountplus.com",
+    "spotify.com", "hbo.com", "crunchyroll.com",
+    "cloudflare.com", "cloudflarestatus.com",
+    "x.com", "twitter.com", "t.co",
+
+    "ip.sb", "ipinfo.io", "ipapi.co", "ip.me", "myip.com", "2ip.io",
+    "whatismyipaddress.com", "browserleaks.com", "ip-api.com",
+    "ip3366.net", "ipip.net", "ip.cn", "ip38.net",
+
+    "ping0.cc"
+  ],
+
+  "_池说明": "预热连接数。direct 固定为 0（strict 模式下根本不会走 direct，留着只会白建连接）。up（住宅）6 是因为浏览器一个页面会开 6+ 并行连接，每条吃一条住宅连接。ttl 是池中连接最长存活秒数；idle_stop 是多久没流量就停止预热（省 Cloudflare 免费额度）。",
+  "pool": {
+    "direct": 0,
+    "up": 6,
+    "ttl": 30,
+    "idle_stop": 90
+  },
+
+  "_兜底说明": "fallback 保持为空。明文 CONNECT 直连住宅代理会把目标域名暴露给 GFW，等于白搭。",
+  "fallback": "",
+
+  "_守护说明": "隧道兜底守护（tunnel/guard.py）的参数。守护负责：① 10808 没监听就自动把隧道拉起来；② 连续 failover_after 次拉不起来，就自动把系统代理还原成原设置（先保证能上网），之后每 retry_interval_after_failover 秒继续尝试；③ 隧道恢复后自动把系统代理切回住宅线路。它只在乎「监听端口」，与上面 client 自己是否在跑无关。注意：每轮「拉起失败」在计数前会先等满 restart_wait 秒（45s），所以连续 failover_after 次失败实际要 3×45≈2 分钟以上才会断尾求生——check_interval 只决定「发现」延迟，调小不会造成误判。",
+  "guard": {
+    "enabled": true,
+    "check_interval": 6,
+    "deep_check_interval": 600,
+    "restart_wait": 45,
+    "failover_after": 3,
+    "retry_interval_after_failover": 300
+  }
+}
