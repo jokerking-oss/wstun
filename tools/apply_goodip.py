@@ -8,9 +8,9 @@
 
 用法：
   python tools/apply_goodip.py --status              # 看当前状态
-  python tools/apply_goodip.py 104.17.104.45         # 进程在跑时：只提示正确做法，不写
-  python tools/apply_goodip.py 104.17.104.45 --restart   # 自动完成（会断网约 5–15 秒）
-  python tools/apply_goodip.py 104.17.104.45 --force     # 明知会被覆盖仍写（仅调试）
+  python tools/apply_goodip.py <边缘IP>              # 进程在跑时：只提示正确做法，不写
+  python tools/apply_goodip.py <边缘IP> --restart    # 自动完成（会断网约 5–15 秒）
+  python tools/apply_goodip.py <边缘IP> --force      # 明知会被覆盖仍写（仅调试）
 """
 import argparse
 import json

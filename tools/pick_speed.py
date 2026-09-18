@@ -7,8 +7,8 @@
 就走哪条路由，与 SNI 无关，所以这能反映「中国 → 该边缘 IP」的真实带宽。
 
 用法：
-  python _pick_speed.py                     测当前 IP + 默认候选
-  python _pick_speed.py --ips 1.2.3.4,...   指定候选
+  python pick_speed.py                     测当前 IP + 默认候选
+  python pick_speed.py --ips 1.2.3.4,...   指定候选
 """
 import argparse
 import json

@@ -11,8 +11,8 @@
 所以证书与路由都不受影响。
 
 用法：
-  python _pick_ip.py              只测不改（默认，安全）
-  python _pick_ip.py --apply      额外写入 client/goodip.json（自动备份原文件）
+  python pick_ip.py              只测不改（默认，安全）
+  python pick_ip.py --apply      额外写入 client/goodip.json（自动备份原文件）
 """
 import argparse
 import ipaddress
